@@ -6,34 +6,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
     $nom = $_POST['nom'];
     $prenom = $_POST['prenom'];
-    $departement = $_POST['departement'];
+    $idDep = $_POST['departement']; // ID du département sélectionné
 
     try {
-        // Début d'une transaction
+        // Démarrer une transaction
         $pdo->beginTransaction();
 
-        // Étape 1 : Vérifier si l'email existe déjà
+        // Vérifier si l'email existe déjà dans la table utilisateur
         $stmt = $pdo->prepare("SELECT * FROM utilisateur WHERE email = ?");
         $stmt->execute([$email]);
 
         if ($stmt->rowCount() > 0) {
             echo "<div class='alert alert-danger text-center'>Cet email est déjà utilisé. <a href='register.php'>Réessayer</a></div>";
         } else {
-            // Étape 2 : Insérer dans le département
-            $stmtDep = $pdo->prepare("INSERT INTO departement (DescDep) VALUES (?)");
-            $stmtDep->execute([$departement]);
-            $idDep = $pdo->lastInsertId(); // Récupérer l'ID du département inséré
-
-            // Étape 3 : Insérer dans la table employé
-            $stmtEmp = $pdo->prepare("INSERT INTO employe (Nom, Prenom, IdDep) VALUES (?, ?, ?)");
-            $stmtEmp->execute([$nom, $prenom, $idDep]);
-            $idEmp = $pdo->lastInsertId(); // Récupérer l'ID de l'employé
-
-            // Étape 4 : Insérer dans la table utilisateur
+            // Insérer d'abord dans la table utilisateur
             $stmtUser = $pdo->prepare("INSERT INTO utilisateur (email, Password) VALUES (?, ?)");
             $stmtUser->execute([$email, $password]);
 
-            // Validation de la transaction
+            // Récupérer l'ID de l'utilisateur inséré
+            $idUser = $pdo->lastInsertId();
+
+            // Insérer ensuite dans la table employe
+            $stmtEmp = $pdo->prepare("INSERT INTO employe (Nom, Prenom, IdDep, IdUser) VALUES (?, ?, ?, ?)");
+            $stmtEmp->execute([$nom, $prenom, $idDep, $idUser]);
+
+            // Confirmer la transaction
             $pdo->commit();
             echo "<div class='alert alert-success text-center'>Inscription réussie. <a href='login.php'>Connectez-vous</a></div>";
         }

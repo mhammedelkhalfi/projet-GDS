@@ -37,11 +37,24 @@
                                 <input type="text" class="form-control" name="prenom" id="prenom" placeholder="Entrez votre prénom" required>
                             </div>
 
-                            <!-- Informations département -->
+                            <!-- Liste déroulante des départements -->
                             <h5 class="text-primary">Informations département</h5>
                             <div class="mb-3">
                                 <label for="departement" class="form-label">Nom du département :</label>
-                                <input type="text" class="form-control" name="departement" id="departement" placeholder="Entrez le département" required>
+                                <select class="form-control" name="departement" id="departement" required>
+                                    <option value="">-- Sélectionnez un département --</option>
+                                    <?php
+                                    require 'db.php';
+                                    try {
+                                        $stmt = $pdo->query("SELECT IdDep, DescDep FROM departement");
+                                        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                                            echo "<option value='{$row['IdDep']}'>{$row['DescDep']}</option>";
+                                        }
+                                    } catch (Exception $e) {
+                                        echo "<option disabled>Erreur lors du chargement des départements</option>";
+                                    }
+                                    ?>
+                                </select>
                             </div>
 
                             <button type="submit" class="btn btn-primary w-100">S'inscrire</button>

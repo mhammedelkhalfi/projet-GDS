@@ -18,11 +18,11 @@
                         <form action="login_process.php" method="POST">
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email :</label>
-                                <input type="email" class="form-control" name="email" id="email" placeholder="Entrez votre email" required>
+                                <input type="email" class="form-control" name="email" id="email" required>
                             </div>
                             <div class="mb-3">
                                 <label for="password" class="form-label">Mot de passe :</label>
-                                <input type="password" class="form-control" name="password" id="password" placeholder="Entrez votre mot de passe" required>
+                                <input type="password" class="form-control" name="password" id="password" required>
                             </div>
                             <button type="submit" class="btn btn-success w-100">Se connecter</button>
                         </form>
@@ -34,6 +34,5 @@
             </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
