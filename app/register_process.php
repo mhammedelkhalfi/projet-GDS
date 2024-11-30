@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // Confirmer la transaction
             $pdo->commit();
-            echo "<div class='alert alert-success text-center'>Inscription réussie. <a href='login.php'>Connectez-vous</a></div>";
+            header("Location: login.php");
         }
     } catch (Exception $e) {
         // Annuler la transaction en cas d'erreur
