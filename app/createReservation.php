@@ -89,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 'salle' => $type_salle
             ]);
         }
-        header("Location: index.php");
+        header("Location: reservation.php");
         exit;
     }
 }

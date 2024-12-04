@@ -1,4 +1,13 @@
 <?php
+session_start();
+if (isset($_SESSION['id_user'])) {
+    $id_user = $_SESSION['id_user'];
+} else {
+    header("Location: login.php");
+    exit;
+}
+
+/*
 // Inclusion de la connexion à la base de données
 include('connexion.php');
 
@@ -71,7 +80,7 @@ function calculerHeureFin($heureDebut, $duree) {
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-</html>
+</html>*/
 
    
 ?>

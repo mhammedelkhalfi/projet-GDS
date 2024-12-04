@@ -12,6 +12,6 @@ if (isset($_GET['id'])) {
 }
 
 // Redirection vers la page principale après suppression
-header("Location: index.php");
+header("Location: reservation.php");
 exit;
 ?>

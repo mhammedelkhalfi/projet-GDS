@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Stocker les informations utilisateur dans la session
         $_SESSION['user_id'] = $user['IdUser']; // Corrigé ici
         $_SESSION['user_email'] = $user['email'];
-        header('Location: resrvation.php');
+        header('Location: dashbord.php');
         exit();
     } else {
         // Afficher un message d'erreur si les identifiants sont incorrects
